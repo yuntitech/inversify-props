@@ -15,6 +15,8 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.resetContainer = exports.setContainer = exports.getContainer = exports.Container = void 0;
 var inversify_1 = require("inversify");
+var rn_api_1 = require("@yunti-private/rn-api");
+var rn_visual_event_tracking_1 = require("@yunti-private/rn-visual-event-tracking");
 var id_helper_1 = require("./id.helper");
 var inject_helper_1 = require("./inject.helper");
 function decorateCatchable(decorator, constructor, parameterIndex) {
@@ -34,7 +36,17 @@ function decorateCatchable(decorator, constructor, parameterIndex) {
 var Container = /** @class */ (function (_super) {
     __extends(Container, _super);
     function Container() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.getApi = function () {
+            return container.get(rn_api_1.apiSid);
+        };
+        _this.getHostUtil = function () {
+            return container.get(rn_api_1.hostUtilSid);
+        };
+        _this.getVisualEventTracking = function () {
+            return container.get(rn_visual_event_tracking_1.visualTrackSid);
+        };
+        return _this;
     }
     Container.prototype.bindTo = function (constructor, customId) {
         var id = id_helper_1.generateIdAndAddToCache(constructor, customId);
@@ -44,17 +56,23 @@ var Container = /** @class */ (function (_super) {
     Container.prototype.addTransient = function (constructor, customId) {
         var id = id_helper_1.generateIdAndAddToCache(constructor, customId);
         decorateCatchable(inject_helper_1.injectable(), constructor);
-        return _super.prototype.bind.call(this, id).to(constructor).inTransientScope();
+        return _super.prototype.bind.call(this, id)
+            .to(constructor)
+            .inTransientScope();
     };
     Container.prototype.addSingleton = function (constructor, customId) {
         var id = id_helper_1.generateIdAndAddToCache(constructor, customId);
         decorateCatchable(inject_helper_1.injectable(), constructor);
-        return _super.prototype.bind.call(this, id).to(constructor).inSingletonScope();
+        return _super.prototype.bind.call(this, id)
+            .to(constructor)
+            .inSingletonScope();
     };
     Container.prototype.addRequest = function (constructor, customId) {
         var id = id_helper_1.generateIdAndAddToCache(constructor, customId);
         decorateCatchable(inject_helper_1.injectable(), constructor);
-        return _super.prototype.bind.call(this, id).to(constructor).inRequestScope();
+        return _super.prototype.bind.call(this, id)
+            .to(constructor)
+            .inRequestScope();
     };
     Container.prototype.get = function (serviceIdentifier) {
         return _super.prototype.get.call(this, serviceIdentifier);

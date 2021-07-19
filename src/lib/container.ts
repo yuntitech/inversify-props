@@ -1,4 +1,6 @@
 import { Container as InversifyContainer, decorate, interfaces } from 'inversify';
+import { apiSid, hostUtilSid, IApi, IHostUtil } from '@yunti-private/rn-api';
+import { IVisualEventTracking, visualTrackSid } from '@yunti-private/rn-visual-event-tracking';
 import { generateIdAndAddToCache } from './id.helper';
 import { injectable } from './inject.helper';
 import { Constructor, Id } from './inversify.types';
@@ -62,6 +64,18 @@ export class Container extends InversifyContainer {
   public get<T>(serviceIdentifier: Id): T {
     return super.get<T>(serviceIdentifier);
   }
+
+  public getApi = (): IApi => {
+    return container.get<IApi>(apiSid);
+  };
+
+  public getHostUtil = (): IHostUtil => {
+    return container.get<IHostUtil>(hostUtilSid);
+  };
+
+  public getVisualEventTracking = (): IVisualEventTracking => {
+    return container.get<IVisualEventTracking>(visualTrackSid);
+  };
 }
 
 let container: Container;

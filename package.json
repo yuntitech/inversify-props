@@ -29,7 +29,15 @@
   "dependencies": {
     "inversify": "^5.0.1"
   },
+  "peerDependencies": {
+    "@yunti-private/rn-api": "*",
+    "@yunti-private/rn-visual-event-tracking": "*",
+    "react-native": "*"
+  },
   "devDependencies": {
+    "@yunti-private/rn-api": "1.0.46",
+    "@yunti-private/rn-visual-event-tracking": "1.0.14",
+    "react-native": "0.61.5",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/preset-env": "^7.10.2",
     "@types/jest": "^26.0.0",
