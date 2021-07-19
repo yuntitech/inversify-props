@@ -33,21 +33,30 @@ export class Container extends InversifyContainer {
     const id = generateIdAndAddToCache(constructor, customId);
     decorateCatchable(injectable(), constructor);
 
-    return super.bind<T>(id).to(constructor).inTransientScope();
+    return super
+      .bind<T>(id)
+      .to(constructor)
+      .inTransientScope();
   }
 
   public addSingleton<T>(constructor: Constructor<T>, customId?: Id): interfaces.BindingWhenOnSyntax<T> {
     const id = generateIdAndAddToCache(constructor, customId);
     decorateCatchable(injectable(), constructor);
 
-    return super.bind<T>(id).to(constructor).inSingletonScope();
+    return super
+      .bind<T>(id)
+      .to(constructor)
+      .inSingletonScope();
   }
 
   public addRequest<T>(constructor: Constructor<T>, customId?: Id): interfaces.BindingWhenOnSyntax<T> {
     const id = generateIdAndAddToCache(constructor, customId);
     decorateCatchable(injectable(), constructor);
 
-    return super.bind<T>(id).to(constructor).inRequestScope();
+    return super
+      .bind<T>(id)
+      .to(constructor)
+      .inRequestScope();
   }
 
   public get<T>(serviceIdentifier: Id): T {
